@@ -1,17 +1,14 @@
-from re import I
-from shortener.ga import visitors
-from shortener.urls.telegram_handler import command_handler
-from django.utils.html import json_script
-from shortener.utils import get_kst, url_count_changer
+from datetime import timedelta
+
 from django.contrib import messages
-from shortener.forms import UrlCreateForm
+from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.shortcuts import redirect, render, get_object_or_404
-from shortener.models import ShortenedUrls, Statistic, TrackingParams
-from django.contrib.auth.decorators import login_required
 from ratelimit.decorators import ratelimit
-from datetime import datetime, timedelta
-from django.views.decorators.cache import never_cache
+
+from shortener.forms import UrlCreateForm
+from shortener.models import ShortenedUrls, Statistic
+from shortener.utils import get_kst, url_count_changer
 
 
 @ratelimit(key="ip", rate="3/m")
@@ -97,9 +94,9 @@ def statistic_view(request, url_id: int):
     base_qs = Statistic.objects.filter(shortened_url_id=url_id, created_at__gte=get_kst() - timedelta(days=14))
     clicks = (
         base_qs.values("created_at__date")
-        .annotate(clicks=Count("id"))
-        .values("created_at__date", "clicks")
-        .order_by("created_at__date")
+            .annotate(clicks=Count("id"))
+            .values("created_at__date", "clicks")
+            .order_by("created_at__date")
     )
     url_info = ShortenedUrls.objects.filter(pk=url_id).prefetch_related("trackingparams_set").first()
     date_list = [c.get("created_at__date").strftime("%Y-%m-%d") for c in clicks]

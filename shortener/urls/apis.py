@@ -1,18 +1,17 @@
 from datetime import timedelta
-from django.db.models.aggregates import Count, Min
-from rest_framework.decorators import action, renderer_classes
-from shortener.utils import MsgOk, get_kst, url_count_changer
+
+from django.db.models.aggregates import Count
 from django.http.response import Http404
-from shortener.models import ShortenedUrls, Statistic, Users
-from shortener.urls import serializers
-from shortener.urls.serializers import BrowerStatSerializer, UrlCreateSerializer, UserSerializer, UrlListSerializer
-from django.contrib.auth.models import User, Group
-from rest_framework.renderers import JSONRenderer
-from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework import status
+from rest_framework import viewsets
+from rest_framework.decorators import action, renderer_classes
+from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
-from django.core.cache import cache
+
+from shortener.models import ShortenedUrls, Statistic
+from shortener.urls.serializers import BrowserStatSerializer, UrlCreateSerializer, UrlListSerializer
+from shortener.utils import MsgOk, get_kst, url_count_changer
 
 
 class UrlListView(viewsets.ModelViewSet):
@@ -20,7 +19,7 @@ class UrlListView(viewsets.ModelViewSet):
     serializer_class = UrlListSerializer
     permission_classes = [permissions.IsAuthenticated]  # permissions.IsAdminUser
 
-    def create(self, request):
+    def create(self, request, **kwargs):
         # POST METHOD
         serializer = UrlCreateSerializer(data=request.data)
         if serializer.is_valid():
@@ -28,17 +27,17 @@ class UrlListView(viewsets.ModelViewSet):
             return Response(UrlListSerializer(rtn).data, status=status.HTTP_201_CREATED)
         pass
 
-    def retrieve(self, request, pk=None):
+    def retrieve(self, request, pk=None, **kwargs):
         # Detail GET
         queryset = self.get_queryset().filter(pk=pk).first()
         serializer = UrlListSerializer(queryset)
         return Response(serializer.data)
 
-    def update(self, request, pk=None):
+    def update(self, request, pk=None, **kwargs):
         # PUT METHOD
         pass
 
-    def partial_update(self, request, pk=None):
+    def partial_update(self, request, pk=None, **kwargs):
         # PATCH METHOD
         pass
 
@@ -56,7 +55,7 @@ class UrlListView(viewsets.ModelViewSet):
         url_count_changer(request, False)
         return MsgOk()
 
-    def list(self, request):
+    def list(self, request, **kwargs):
         # GET ALL
         queryset = self.get_queryset().filter(creator_id=request.users_id).all()
         serializer = UrlListSerializer(queryset, many=True)
@@ -78,17 +77,17 @@ class UrlListView(viewsets.ModelViewSet):
         )
         if not queryset.exists():
             raise Http404
-        browers = (
+        browsers = (
             queryset.values("web_browser", "created_at__date")
             .annotate(count=Count("id"))
             .values("count", "web_browser", "created_at__date")
             .order_by("-created_at__date")
         )
-        browers = (
+        browsers = (
             queryset.values("web_browser")
             .annotate(count=Count("id"))
             .values("count", "web_browser")
             .order_by("-count")
         )
-        serializer = BrowerStatSerializer(browers, many=True)
+        serializer = BrowserStatSerializer(browsers, many=True)
         return Response(serializer.data)

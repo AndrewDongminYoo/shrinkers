@@ -1,10 +1,11 @@
 import json
-from shortener.forms import LoginForm
-from django.contrib.auth.models import User
-from shortener.models import ShortenedUrls, TrackingParams, Users
-from django.test import TestCase
-from django.test import Client
 from unittest.mock import patch
+
+from django.contrib.auth.models import User
+from django.test import Client
+from django.test import TestCase
+
+from shortener.models import ShortenedUrls, TrackingParams, Users
 
 
 # Create your tests here.

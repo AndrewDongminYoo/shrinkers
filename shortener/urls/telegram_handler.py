@@ -48,11 +48,11 @@ def send_chat(chat_id: str, msg: str):
 
 def get_response(command, url=None):
     c = {
-        "start": "/help 로 안내를 받아보세요!",
+        "start": "/help 로 안내를 받아 보세요!",
         "help": "/short [닉네임] [목적지 url] 형식으로 입력하시면 단축 URL 이 제공됩니다.",
-        "done": f"완성되었어요! {url}",
+        "done": f"완성 됐어요! {url}",
     }
-    return c.get(command, "잘 못 알아들었습니다. /help 로 도움말을 참고하세요.")
+    return c.get(command, "잘 못 알아 들었습니다. /help 로 도움말을 참고하세요.")
 
 
 def command_handler():

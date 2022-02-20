@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import json
 import os
 from pathlib import Path
+
 from google.oauth2 import service_account
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -172,6 +173,7 @@ else:
     STATICFILES_STORAGE = "config.storage_backends.GoogleCloudStaticStorage"
     GS_STATIC_BUCKET_NAME = "shrinkers-bucket-fc"
     STATIC_URL = "https://storage.googleapis.com/{}/statics/".format(GS_STATIC_BUCKET_NAME)
+
 # Default primary key field type
 # pip install 'django-storages[google]'
 # pip install google-auth

@@ -1,6 +1,5 @@
 from shortener.utils import send_email
 from django.shortcuts import get_object_or_404
-from shortener.urls.telegram_handler import send_chat
 from django.contrib.auth.models import User
 from shortener.urls.decorators import admin_only
 from typing import List
@@ -24,10 +23,10 @@ def get_user(request):
 
 @user.post("", response={201: None})
 def update_telegram_username(request, body: TelegramUpdateSchema):
-    user = Users.objects.filter(user_id=request.users_id)
-    if not user.exists():
+    _user = Users.objects.filter(user_id=request.users_id)
+    if not _user.exists():
         return 404, {"msg": "No user found"}
-    user.update(telegram_username=body.username)
+    _user.update(telegram_username=body.username)
     return 201, None
 
 
@@ -59,8 +58,8 @@ def send_telegram_to_user(request, body: TelegramSendMsgBody):
 def send_email_to_user(request, body: SendEmailBody):
     # Time : 2.4860658645629883
     t = time()
-    user = get_object_or_404(Users, pk=body.users_id)
-    send_email(mailing_list=[user.full_name, user.user.email])
+    _user = get_object_or_404(Users, pk=body.users_id)
+    send_email(mailing_list=[_user.full_name, _user.user.email])
     print(time() - t)
     return 201, {"msg": "ok"}
 

@@ -1,11 +1,12 @@
-from shrinkers import settings
 import os
-import requests
-from django.utils import timezone
 from datetime import timedelta, datetime, date
+
+from django.utils import timezone
 from googleapiclient.discovery import build  # pip install google-api-python-client
 from oauth2client.service_account import ServiceAccountCredentials  # pip install --upgrade oauth2client
+
 from shortener.models import DailyVisitors
+from shrinkers import settings
 
 
 def visitors():
@@ -33,14 +34,13 @@ def visitors():
 
         if last_time + timedelta(minutes=1) < timezone.now():
 
-            def initialize_analyticsreporting():
+            def initialize_analytics_reporting():
                 credentials = ServiceAccountCredentials.from_json_keyfile_name(KEY_FILE_LOCATION, SCOPES)
-                analytics = build("analyticsreporting", "v4", credentials=credentials)
-                return analytics
+                return build("analyticsreporting", "v4", credentials=credentials)
 
-            def get_report(analytics):
+            def get_report(_analytics):
                 return (
-                    analytics.reports()
+                    _analytics.reports()
                     .batchGet(
                         body={
                             "reportRequests": [
@@ -68,7 +68,7 @@ def visitors():
               }
             https://ga-dev-tools.web.app/query-explorer/
             """
-            analytics = initialize_analyticsreporting()
+            analytics = initialize_analytics_reporting()
             response = get_report(analytics)
             data = response["reports"][0]["data"]["rows"]
             today_str = today.strftime("%Y%m%d")
@@ -76,11 +76,11 @@ def visitors():
             for i in data:
                 get_value = int(i["metrics"][0]["totals"][0])
                 if i["dimensions"] == [today_str]:
-                    todays = today_data.values("visits", "totals")[0]
-                    if get_value > todays["visits"]:
+                    today_datas = today_data.values("visits", "totals")[0]
+                    if get_value > today_datas["visits"]:
                         DailyVisitors.objects.filter(visit_date__exact=today).update(
                             visits=get_value,
-                            totals=todays["totals"] - todays["visits"] + get_value,
+                            totals=today_datas["totals"] - today_datas["visits"] + get_value,
                             last_updated_on=timezone.now(),
                         )
                 elif i["dimensions"] == [yesterday_str]:

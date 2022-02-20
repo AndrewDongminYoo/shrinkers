@@ -42,19 +42,18 @@ class UserRegisterBody(Schema):
     policy: bool
 
     @validator("password")
-    def password_len_check(cls, v):
+    def password_len_check(self, v):
         if v and len(v) >= 8:
             return v
         raise ValueError(f"패스워드는 8자 이상 필수 입니다.")
 
     @validator("policy")
-    def policy_check(cls, v):
+    def policy_check(self, v):
         if v:
             return v
-        raise ValueError(f"이용약관은 필수 동의 사항 입니다.")
+        raise ValueError(f"이용 약관은 필수 동의 사항 입니다.")
 
     def register(self):
-
         new_user = U()
         new_user.username = uuid4()
         new_user.password = make_password(self.password)

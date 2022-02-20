@@ -27,23 +27,32 @@ class UrlListSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class BrowerStatSerializer(serializers.Serializer):
+class BrowserStatSerializer(serializers.Serializer):
+    def create(self, validated_data):
+        pass
+
+    def update(self, instance, validated_data):
+        pass
+
     web_browser = serializers.CharField(max_length=50)
     count = serializers.IntegerField()
     date = serializers.DateField(source="created_at__date", required=False)
 
 
 class UrlCreateSerializer(serializers.Serializer):
+    def update(self, instance, validated_data):
+        pass
+
     nick_name = serializers.CharField(max_length=50)
     target_url = serializers.CharField(max_length=2000)
     category = serializers.IntegerField(required=False)
 
-    def create(self, request, data, commit=True):
+    def create(self, request, validated_data, commit=True):
         instance = ShortenedUrls()
         users = Users.objects.filter(request.users_id).first()
         instance.creator = users
-        instance.category = data.get("category", None)
-        instance.target_url = data.get("target_url").strip()
+        instance.category = validated_data.get("category", None)
+        instance.target_url = validated_data.get("target_url").strip()
         if commit:
             try:
                 instance.save()

@@ -42,7 +42,7 @@ def register(request):
             raw_password = form.cleaned_data.get("password1")
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            msg = "회원가입완료"
+            msg = "회원 가입 완료"
         return render(request, "register.html", {"form": form, "msg": msg})
     else:
         return render(request, "register.html", {})
@@ -50,6 +50,7 @@ def register(request):
 
 def login_view(request):
     is_ok = False
+    msg = None
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():

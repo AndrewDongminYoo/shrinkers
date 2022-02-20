@@ -62,7 +62,7 @@ class ShrinkersMiddleware:
             ADMIN_EMAIL = "rocklay.info@gmail.com"
             content = (
                 f"{response.status_code} 에러 발생 \n"
-                f"엔드포인드 : ({str(request.method).upper()}) {endpoint}\n"
+                f"엔드 포인트 : ({str(request.method).upper()}) {endpoint}\n"
                 f"IP : {ip} \n"
                 f"User ID : {request.users_id} \n"
             )

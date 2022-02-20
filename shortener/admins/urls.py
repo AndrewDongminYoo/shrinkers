@@ -1,5 +1,3 @@
-from shortener.admins.views import url_list
-from django.urls import path
 from django.urls import path
 
 from shortener.admins.views import url_list

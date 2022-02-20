@@ -1,12 +1,9 @@
-from shortener.utils import url_count_changer
-from urllib.parse import urlparse
-
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.forms.widgets import Widget
-from shortener.models import ShortenedUrls, Users
-from django.db.models import F
+from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext_lazy as _
+
+from shortener.models import ShortenedUrls, Users
+from shortener.utils import url_count_changer
 
 
 class RegisterForm(UserCreationForm):
@@ -54,7 +51,7 @@ class UrlCreateForm(forms.ModelForm):
             "target_url": forms.TextInput(attrs={"class": "form-control", "placeholder": "포워딩될 URL"}),
         }
 
-    def save(self, request, commit=True, is_admin=False):
+    def save_form(self, request, commit=True, is_admin=False):
         instance = super(UrlCreateForm, self).save(commit=False)
         if not is_admin:
             instance.creator_id = request.users_id
@@ -68,7 +65,7 @@ class UrlCreateForm(forms.ModelForm):
                 url_count_changer(request, True)
         return instance
 
-    def update_form(self, request, url_id, is_admin=False):
+    def update_form(self, request, url_id):
         instance = super(UrlCreateForm, self).save(commit=False)
         instance.target_url = instance.target_url.strip()
         ShortenedUrls.objects.filter(pk=url_id).update(target_url=instance.target_url, nick_name=instance.nick_name)

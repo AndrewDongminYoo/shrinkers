@@ -1,6 +1,5 @@
 import string
 import random
-import itertools
 from typing import Dict
 
 from django.db import models
@@ -57,18 +56,20 @@ class Categories(TimeStampedModel):
     creator = models.ForeignKey(Users, on_delete=models.CASCADE)
 
 
+def rand_string():
+    str_pool = string.digits + string.ascii_letters
+    return ("".join([random.choice(str_pool) for _ in range(6)])).lower()
+
+
+def rand_letter():
+    str_pool = string.ascii_letters
+    return random.choice(str_pool).lower()
+
+
 class ShortenedUrls(TimeStampedModel):
     class UrlCreatedVia(models.TextChoices):
         WEBSITE = "web"
         TELEGRAM = "telegram"
-
-    def rand_string():
-        str_pool = string.digits + string.ascii_letters
-        return ("".join([random.choice(str_pool) for _ in range(6)])).lower()
-
-    def rand_letter():
-        str_pool = string.ascii_letters
-        return random.choice(str_pool).lower()
 
     nick_name = models.CharField(max_length=100)
     category = models.ForeignKey(Categories, on_delete=models.DO_NOTHING, null=True)
@@ -147,11 +148,10 @@ class Statistic(TimeStampedModel):
 class TrackingParams(TimeStampedModel):
     shortened_url = models.ForeignKey(ShortenedUrls, on_delete=models.CASCADE)
     params = models.CharField(max_length=20)
-    
+
     @classmethod
     def get_tracking_params(cls, shortened_url_id:int):
         return TrackingParams.objects.filter(shortened_url_id=shortened_url_id).values_list("params", flat=True)
-
 
 
 class BackOfficeLogs(TimeStampedModel):
