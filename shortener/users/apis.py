@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from shortener.urls.decorators import admin_only
 from typing import List
 from shortener.schemas import SendEmailBody, Message, TelegramSendMsgBody, UserRegisterBody, Users as U
-from shortener.schemas import TelemgramUpdateSchema
+from shortener.schemas import TelegramUpdateSchema
 from shortener.models import JobInfo, Users
 from django.contrib.auth import login
 from ninja.router import Router
@@ -23,7 +23,7 @@ def get_user(request):
 
 
 @user.post("", response={201: None})
-def update_telegram_username(request, body: TelemgramUpdateSchema):
+def update_telegram_username(request, body: TelegramUpdateSchema):
     user = Users.objects.filter(user_id=request.users_id)
     if not user.exists():
         return 404, {"msg": "No user found"}

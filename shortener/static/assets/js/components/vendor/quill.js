@@ -4,45 +4,45 @@
 
 'use strict';
 
-var QuillEditor = (function() {
+var QuillEditor = (function () {
 
-	// Variables
+    // Variables
 
-	var $quill = $('[data-toggle="quill"]');
+    var $quill = $('[data-toggle="quill"]');
 
 
-	// Methods
+    // Methods
 
-	function init($this) {
+    function init($this) {
 
-		// Get placeholder
-		var placeholder = $this.data('quill-placeholder');
+        // Get placeholder
+        var placeholder = $this.data('quill-placeholder');
 
-		// Init editor
-		var quill = new Quill($this.get(0), {
-			modules: {
-				toolbar: [
-					['bold', 'italic'],
-					['link', 'blockquote', 'code', 'image'],
-					[{
-						'list': 'ordered'
-					}, {
-						'list': 'bullet'
-					}]
-				]
-			},
-			placeholder: placeholder,
-			theme: 'snow'
-		});
+        // Init editor
+        var quill = new Quill($this.get(0), {
+            modules: {
+                toolbar: [
+                    ['bold', 'italic'],
+                    ['link', 'blockquote', 'code', 'image'],
+                    [{
+                        'list': 'ordered'
+                    }, {
+                        'list': 'bullet'
+                    }]
+                ]
+            },
+            placeholder: placeholder,
+            theme: 'snow'
+        });
 
-	}
+    }
 
-	// Events
+    // Events
 
-	if ($quill.length) {
-		$quill.each(function() {
-			init($(this));
-		});
-	}
+    if ($quill.length) {
+        $quill.each(function () {
+            init($(this));
+        });
+    }
 
 })();

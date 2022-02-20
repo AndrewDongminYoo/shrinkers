@@ -13,11 +13,13 @@ def url_count_changer(request, is_increase: bool):
     Users.objects.filter(user_id=request.user.id).update(url_count=F('url_count') + count_number)
 
 
-def MsgOk(status:int = 200):
+def MsgOk(status: int = 200):
     return Response({"msg": "ok"}, status=status)
+
 
 def get_kst():
     return datetime.utcnow() + timedelta(hours=9)
+
 
 email_content = """
 <div style='margin-top:0cm;margin-right:0cm;margin-bottom:10.0pt;margin-left:0cm;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;border:none;border-bottom:solid #EEEEEE 1.0pt;padding:0cm 0cm 6.0pt 0cm;background:white;'>

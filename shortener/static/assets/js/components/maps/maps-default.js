@@ -38,11 +38,11 @@ function initMap() {
         content: contentString
     });
 
-    google.maps.event.addListener(marker, 'click', function() {
+    google.maps.event.addListener(marker, 'click', function () {
         infowindow.open(map, marker);
     });
 }
 
-if($map.length) {
+if ($map.length) {
     google.maps.event.addDomListener(window, 'load', initMap);
 }

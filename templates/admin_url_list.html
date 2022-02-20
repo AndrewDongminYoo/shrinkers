@@ -1,116 +1,117 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load custom_tags %}
-{% block title%}URL 리스트{% endblock %}
-{% block main_breadscumb%}대시보드{% endblock %}
-{% block sub_breadscumb_highlight %}URL List{% endblock%}
+{% block title %}URL 리스트{% endblock %}
+{% block main_breadscumb %}대시보드{% endblock %}
+{% block sub_breadscumb_highlight %}URL List{% endblock %}
 {% block sub_breadscumb %}URL 리스트{% endblock %}
 {% block content %}
 
-<div class="row" id="vue_div">
-  <div class="col-xl-12">
-    <div class="card">
-      <div class="card-header border-0">
-        <a href="{% url 'url_create' %}" class="btn btn-primary btn-sm font-size-12 float-right">
-          추가
-        </a>
-      </div>
-      <div class="table-responsive">
-        <!-- Projects table -->
-        <table class="table align-items-center table-flush">
-          <thead class="thead-light text-center">
-            <tr>
-              <th rowspan='2'>별칭</th>
-              <th scope="col">이동 URL</th>
-              <th scope="col">단축 URL</th>
-              <th scope="col">생성채널</th>
-              <th scope="col">생성일</th>
-              <th scope="col">클릭수</th>
-              <th rowspan='2'>액션</th>
-            </tr>
-            <tr>
-              <th scope="col">생성자(이메일)</th>
-              <th scope="col">텔레그램ID</th>
-              <th scope="col">소속</th>
-              <th scope="col">페이플랜</th>
-              <th scope="col">엣지 사용 수</th>
-            </tr>
+    <div class="row" id="vue_div">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header border-0">
+                    <a href="{% url 'url_create' %}" class="btn btn-primary btn-sm font-size-12 float-right">
+                        추가
+                    </a>
+                </div>
+                <div class="table-responsive">
+                    <!-- Projects table -->
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light text-center">
+                        <tr>
+                            <th rowspan='2'>별칭</th>
+                            <th scope="col">이동 URL</th>
+                            <th scope="col">단축 URL</th>
+                            <th scope="col">생성채널</th>
+                            <th scope="col">생성일</th>
+                            <th scope="col">클릭수</th>
+                            <th rowspan='2'>액션</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">생성자(이메일)</th>
+                            <th scope="col">텔레그램ID</th>
+                            <th scope="col">소속</th>
+                            <th scope="col">페이플랜</th>
+                            <th scope="col">엣지 사용 수</th>
+                        </tr>
 
-          </thead>
-          <tbody>
-            {% for u in urls %}
-            <tr>
-              <th class="font-weight-bold" rowspan="2">{{ u.nick_name }}</th>
+                        </thead>
+                        <tbody>
+                        {% for u in urls %}
+                            <tr>
+                                <th class="font-weight-bold" rowspan="2">{{ u.nick_name }}</th>
 
-              <td>{{ u.target_url }} </td>
-              <td>
-                <a href="/{{ u.prefix }}/{{ u.shortened_url }}" target="_blank">
-                  {{ request.get_protocol }}{{ request.get_host }}/{{ u.prefix }}/{{ u.shortened_url }}
-                </a>
-              </td>
-              <td>{{ u.create_via }}</td>
-              <td>{{ u.created_at | date:"Y-m-d"}}</td>
-              <td>
-                {{ u.click }}
-                <a href="{% url 'statistic_view' url_id=u.id %}">
-                  <i class="ni ni-chart-bar-32 ml-2" style="cursor: pointer;"></i>
-                </a>
-              </td>
-              <td rowspan="2">
-                  <a class="btn btn-sm btn-primary text-white" href="{% url 'url_change' action='update' url_id=u.id %}">
-                    수정
-                  </a>
-                  <button @click="deleteUrl({{u.id}})" class="btn btn-sm btn-danger">
-                    삭제
-                  </button>
-              </td>
-            </tr>
-            <tr>
-              <td scope="col">{{ u.creator.full_name }} ({{ u.creator.user.email }})</td>
-              <td scope="col">{{ u.creator.telegram_username }}</td>
-              <td scope="col">{{ u.creator.organization.name }}</td>
-              <td scope="col">{{ u.creator.organization.pay_plan.name }}</td>
-              {% comment %} <td scope="col">{{ u.statistic_set.all | get_count:"web_browser,Edge" }} 개</td> {% endcomment %}
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
+                                <td>{{ u.target_url }} </td>
+                                <td>
+                                    <a href="/{{ u.prefix }}/{{ u.shortened_url }}" target="_blank">
+                                        {{ request.get_protocol }}{{ request.get_host }}/{{ u.prefix }}/{{ u.shortened_url }}
+                                    </a>
+                                </td>
+                                <td>{{ u.create_via }}</td>
+                                <td>{{ u.created_at | date:"Y-m-d" }}</td>
+                                <td>
+                                    {{ u.click }}
+                                    <a href="{% url 'statistic_view' url_id=u.id %}">
+                                        <i class="ni ni-chart-bar-32 ml-2" style="cursor: pointer;"></i>
+                                    </a>
+                                </td>
+                                <td rowspan="2">
+                                    <a class="btn btn-sm btn-primary text-white"
+                                       href="{% url 'url_change' action='update' url_id=u.id %}">
+                                        수정
+                                    </a>
+                                    <button @click="deleteUrl({{ u.id }})" class="btn btn-sm btn-danger">
+                                        삭제
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td scope="col">{{ u.creator.full_name }} ({{ u.creator.user.email }})</td>
+                                <td scope="col">{{ u.creator.telegram_username }}</td>
+                                <td scope="col">{{ u.creator.organization.name }}</td>
+                                <td scope="col">{{ u.creator.organization.pay_plan.name }}</td>
+                                {% comment %} <td scope="col">{{ u.statistic_set.all | get_count:"web_browser,Edge" }} 개</td> {% endcomment %}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-<script>
-let vm = new Vue({
-    delimiters: ['[[', ']]'],
-    el: '#vue_div',
-    data: {
-      newUrlName: null,
-      newUrlTarget: null,
-      urlLists: []
-    },
-    mounted() {
-    },
-    methods: {
-      deleteUrl: function (urlId) {
-        const c = confirm('정말 삭제 하시겠습니까?');
-        if (!c) return;
-        axios.delete(`/api/urls/${urlId}`, {headers: {'X-CSRFToken': Cookies.get('csrftoken')}}
-        ).then(function (response) {
-        }).catch(function (e) {
-        }).finally(function () {
-          window.location.reload();
-        });
-      }
-    },
-    filters: {
-      addressAssembler: function(v, arg) {
-        const url = new URL(document.URL);
-        const host = url.host;
-        return `${host}/${v}/${arg}`
-     }
-    }
-})
-</script>
+    <script>
+        let vm = new Vue({
+            delimiters: ['[[', ']]'],
+            el: '#vue_div',
+            data: {
+                newUrlName: null,
+                newUrlTarget: null,
+                urlLists: []
+            },
+            mounted() {
+            },
+            methods: {
+                deleteUrl: function (urlId) {
+                    const c = confirm('정말 삭제 하시겠습니까?');
+                    if (!c) return;
+                    axios.delete(`/api/urls/${urlId}`, {headers: {'X-CSRFToken': Cookies.get('csrftoken')}}
+                    ).then(function (response) {
+                    }).catch(function (e) {
+                    }).finally(function () {
+                        window.location.reload();
+                    });
+                }
+            },
+            filters: {
+                addressAssembler: function (v, arg) {
+                    const url = new URL(document.URL);
+                    const host = url.host;
+                    return `${host}/${v}/${arg}`
+                }
+            }
+        })
+    </script>
 {% endblock %}
 

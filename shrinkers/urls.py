@@ -43,7 +43,6 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 
-
 apis = NinjaAPI(title="Shrinkers API")
 apis.add_router("/users/", user_router, tags=["Users"])
 

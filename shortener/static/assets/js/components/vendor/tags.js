@@ -4,39 +4,39 @@
 
 'use strict';
 
-var Tags = (function() {
+var Tags = (function () {
 
-	//
-	// Variables
-	//
+    //
+    // Variables
+    //
 
-	var $tags = $('[data-toggle="tags"]');
-
-
-	//
-	// Methods
-	//
-
-	function init($this) {
-
-		var options = {
-			tagClass: 'badge badge-primary'
-		};
-
-		$this.tagsinput(options);
-	}
+    var $tags = $('[data-toggle="tags"]');
 
 
-	//
-	// Events
-	//
+    //
+    // Methods
+    //
 
-	if ($tags.length) {
+    function init($this) {
 
-		// Init selects
-		$tags.each(function() {
-			init($(this));
-		});
-	}
+        var options = {
+            tagClass: 'badge badge-primary'
+        };
+
+        $this.tagsinput(options);
+    }
+
+
+    //
+    // Events
+    //
+
+    if ($tags.length) {
+
+        // Init selects
+        $tags.each(function () {
+            init($(this));
+        });
+    }
 
 })();

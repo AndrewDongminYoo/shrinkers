@@ -1,9 +1,8 @@
-
-(function($) {
+(function ($) {
     'use strict'
 
-    $(function() {
-        $('[data-toggle="sweet-alert"]').on('click', function(){
+    $(function () {
+        $('[data-toggle="sweet-alert"]').on('click', function () {
             var type = $(this).data('sweet-alert');
 
             switch (type) {
@@ -14,7 +13,7 @@
                         buttonsStyling: false,
                         confirmButtonClass: 'btn btn-primary'
                     })
-                break;
+                    break;
 
                 case 'info':
                     swal({
@@ -24,7 +23,7 @@
                         buttonsStyling: false,
                         confirmButtonClass: 'btn btn-info'
                     })
-                break;
+                    break;
 
                 case 'info':
                     swal({
@@ -34,7 +33,7 @@
                         buttonsStyling: false,
                         confirmButtonClass: 'btn btn-info'
                     })
-                break;
+                    break;
 
                 case 'success':
                     swal({
@@ -44,7 +43,7 @@
                         buttonsStyling: false,
                         confirmButtonClass: 'btn btn-success'
                     })
-                break;
+                    break;
 
                 case 'warning':
                     swal({
@@ -54,7 +53,7 @@
                         buttonsStyling: false,
                         confirmButtonClass: 'btn btn-warning'
                     })
-                break;
+                    break;
 
                 case 'question':
                     swal({
@@ -64,7 +63,7 @@
                         buttonsStyling: false,
                         confirmButtonClass: 'btn btn-default'
                     })
-                break;
+                    break;
 
                 case 'confirm':
                     swal({
@@ -88,7 +87,7 @@
                             });
                         }
                     })
-                break;
+                    break;
 
                 case 'image':
                     swal({
@@ -98,8 +97,8 @@
                         buttonsStyling: false,
                         confirmButtonClass: 'btn btn-primary',
                         confirmButtonText: 'Super!'
-                });
-                break;
+                    });
+                    break;
 
                 case 'timer':
                     swal({
@@ -108,7 +107,7 @@
                         timer: 2000,
                         showConfirmButton: false
                     });
-                break;
+                    break;
             }
         });
 

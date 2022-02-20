@@ -1,8 +1,8 @@
-from django.db.models.query import Prefetch
-from django.db.models import Subquery, OuterRef
-from shortener.models import ShortenedUrls, Statistic
 from django.contrib.auth.decorators import login_required
+from django.db.models.query import Prefetch
 from django.shortcuts import render
+
+from shortener.models import ShortenedUrls, Statistic
 from shortener.urls.decorators import admin_only
 
 

@@ -19,54 +19,54 @@
 -->
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
+<head>
+    <meta charset="utf-8"/>
     <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta
-      name="description"
-      content="Start your development with a Dashboard for Bootstrap 4."
+            name="description"
+            content="Start your development with a Dashboard for Bootstrap 4."
     />
-    <meta name="author" content="Creative Tim" />
+    <meta name="author" content="Creative Tim"/>
     <title>{% block title %}{% endblock %} | Shrinkers</title>
 
     <!-- Fonts -->
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
     />
     <!-- Icons -->
     <link
-      rel="stylesheet"
-      href="{% static 'assets/vendor/nucleo/css/nucleo.css' %}"
-      type="text/css"
+            rel="stylesheet"
+            href="{% static 'assets/vendor/nucleo/css/nucleo.css' %}"
+            type="text/css"
     />
     <link
-      rel="stylesheet"
-      href="{% static 'assets/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}"
-      type="text/css"
+            rel="stylesheet"
+            href="{% static 'assets/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}"
+            type="text/css"
     />
     <!-- Page plugins -->
     <link
-      rel="stylesheet"
-      href="{% static 'assets/vendor/fullcalendar/dist/fullcalendar.min.css' %}"
+            rel="stylesheet"
+            href="{% static 'assets/vendor/fullcalendar/dist/fullcalendar.min.css' %}"
     />
     <link
-      rel="stylesheet"
-      href="{% static 'assets/vendor/sweetalert2/dist/sweetalert2.min.css' %}"
+            rel="stylesheet"
+            href="{% static 'assets/vendor/sweetalert2/dist/sweetalert2.min.css' %}"
     />
     <link
-      rel="stylesheet"
-      href="//cdn.datatables.net/1.11.0/css/jquery.dataTables.min.css"
+            rel="stylesheet"
+            href="//cdn.datatables.net/1.11.0/css/jquery.dataTables.min.css"
     />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Argon CSS -->
     <link
-      rel="stylesheet"
-      href="{% static 'css/dashboard.css' %}"
-      type="text/css"
+            rel="stylesheet"
+            href="{% static 'css/dashboard.css' %}"
+            type="text/css"
     />
     <!-- Core -->
     <script src="{% static 'assets/vendor/jquery/dist/jquery.min.js' %}"></script>
@@ -83,63 +83,68 @@
     <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
     <script src="{% static 'assets/js/dashboard.js' %}?v=1.2.0"></script>
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-206174703-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-206174703-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-    gtag('config', 'UA-206174703-1');
-  </script>
+        function gtag() {
+            dataLayer.push(arguments);
+        }
 
-  </head>
+        gtag('js', new Date());
 
-  <body>
-    {% include 'includes/nav.html' %}
-    <!-- Main content -->
-    <div class="main-content" id="panel">
-      <!-- Topnav -->
-      {% include 'includes/top_nav.html' %}
-      <!-- Header -->
-      <!-- Header -->
-      <div class="header bg-primary pb-6">
+        gtag('config', 'UA-206174703-1');
+    </script>
+
+</head>
+
+<body>
+{% include 'includes/nav.html' %}
+<!-- Main content -->
+<div class="main-content" id="panel">
+    <!-- Topnav -->
+    {% include 'includes/top_nav.html' %}
+    <!-- Header -->
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
         <div class="container-fluid">
-          <div class="header-body">
-            <div class="row align-items-center py-4">
-              <div class="col-lg-6 col-7">
-                <h6 class="h2 text-white d-inline-block mb-0">{% block sub_breadscumb_highlight %}{% endblock %}</h6>
-                <nav
-                  aria-label="breadcrumb"
-                  class="d-none d-md-inline-block ml-md-4"
-                >
-                  <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                    <li class="breadcrumb-item">
-                      <a href="#">
-                        {% block main_breadscumb %}{% endblock %}
-                      </a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">
-                      {% block sub_breadscumb %}{% endblock %}
-                    </li>
-                  </ol>
-                </nav>
-              </div>
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 text-white d-inline-block mb-0">
+                            {% block sub_breadscumb_highlight %}{% endblock %}</h6>
+                        <nav
+                                aria-label="breadcrumb"
+                                class="d-none d-md-inline-block ml-md-4"
+                        >
+                            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                                <li class="breadcrumb-item">
+                                    <a href="#">
+                                        {% block main_breadscumb %}{% endblock %}
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {% block sub_breadscumb %}{% endblock %}
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-      <!-- Page content -->
-      <div class="container-fluid mt--6">
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
         {% block content %}
         {% endblock %}
-      </div>
     </div>
-    <!-- Argon JS -->
-    
-    <!-- Demo JS - remove this in your project -->
-    <script src="{% static 'assets/js/dashboard.js' %}?v=1.2.0"></script>
-    <script src="{% static 'assets/js/demo.min.js' %}"></script>
-  </body>
+</div>
+<!-- Argon JS -->
+
+<!-- Demo JS - remove this in your project -->
+<script src="{% static 'assets/js/dashboard.js' %}?v=1.2.0"></script>
+<script src="{% static 'assets/js/demo.min.js' %}"></script>
+</body>
 
 </html>

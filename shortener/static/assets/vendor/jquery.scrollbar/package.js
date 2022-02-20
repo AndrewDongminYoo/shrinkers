@@ -21,6 +21,6 @@ Package.onUse(function (api) {
 
 Package.onTest(function (api) {
     api.use([packageName, 'sanjo:jasmine'], where);
-    api.use(['webapp','tinytest'], where);
+    api.use(['webapp', 'tinytest'], where);
     api.addFiles('meteor/tests.js', where); // testing specific files
 });

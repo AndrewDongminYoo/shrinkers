@@ -9,7 +9,6 @@ from shortener.urls.apis import *
 router = routers.DefaultRouter()
 router.register(r'urls', UrlListView)
 
-
 urlpatterns = [
     path("", url_list, name="url_list"),
     path("create", url_create, name="url_create"),

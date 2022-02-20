@@ -4,13 +4,13 @@
 
 'use strict';
 
-var Layout = (function() {
+var Layout = (function () {
 
     function pinSidenav() {
         $('.sidenav-toggler').addClass('active');
         $('.sidenav-toggler').data('action', 'sidenav-unpin');
         $('body').removeClass('g-sidenav-hidden').addClass('g-sidenav-show g-sidenav-pinned');
-        $('body').append('<div class="backdrop d-xl-none" data-action="sidenav-unpin" data-target='+$('#sidenav-main').data('target')+' />');
+        $('body').append('<div class="backdrop d-xl-none" data-action="sidenav-unpin" data-target=' + $('#sidenav-main').data('target') + ' />');
 
         // Store the sidenav state in a cookie session
         Cookies.set('sidenav-state', 'pinned');
@@ -30,35 +30,34 @@ var Layout = (function() {
 
     var $sidenavState = Cookies.get('sidenav-state') ? Cookies.get('sidenav-state') : 'pinned';
 
-    if($(window).width() > 1200) {
-        if($sidenavState == 'pinned') {
+    if ($(window).width() > 1200) {
+        if ($sidenavState == 'pinned') {
             pinSidenav()
         }
 
-        if(Cookies.get('sidenav-state') == 'unpinned') {
+        if (Cookies.get('sidenav-state') == 'unpinned') {
             unpinSidenav()
         }
 
-        $(window).resize(function() {
-            if( $('body').hasClass('g-sidenav-show') && !$('body').hasClass('g-sidenav-pinned')) {
+        $(window).resize(function () {
+            if ($('body').hasClass('g-sidenav-show') && !$('body').hasClass('g-sidenav-pinned')) {
                 $('body').removeClass('g-sidenav-show').addClass('g-sidenav-hidden');
             }
         })
     }
 
-    if($(window).width() < 1200){
-      $('body').removeClass('g-sidenav-hide').addClass('g-sidenav-hidden');
-      $('body').removeClass('g-sidenav-show');
-      $(window).resize(function() {
-          if( $('body').hasClass('g-sidenav-show') && !$('body').hasClass('g-sidenav-pinned')) {
-              $('body').removeClass('g-sidenav-show').addClass('g-sidenav-hidden');
-          }
-      })
+    if ($(window).width() < 1200) {
+        $('body').removeClass('g-sidenav-hide').addClass('g-sidenav-hidden');
+        $('body').removeClass('g-sidenav-show');
+        $(window).resize(function () {
+            if ($('body').hasClass('g-sidenav-show') && !$('body').hasClass('g-sidenav-pinned')) {
+                $('body').removeClass('g-sidenav-show').addClass('g-sidenav-hidden');
+            }
+        })
     }
 
 
-
-    $("body").on("click", "[data-action]", function(e) {
+    $("body").on("click", "[data-action]", function (e) {
 
         e.preventDefault();
 
@@ -72,58 +71,58 @@ var Layout = (function() {
         switch (action) {
             case 'sidenav-pin':
                 pinSidenav();
-            break;
+                break;
 
             case 'sidenav-unpin':
                 unpinSidenav();
-            break;
+                break;
 
             case 'search-show':
                 target = $this.data('target');
                 $('body').removeClass('g-navbar-search-show').addClass('g-navbar-search-showing');
 
-                setTimeout(function() {
+                setTimeout(function () {
                     $('body').removeClass('g-navbar-search-showing').addClass('g-navbar-search-show');
                 }, 150);
 
-                setTimeout(function() {
+                setTimeout(function () {
                     $('body').addClass('g-navbar-search-shown');
                 }, 300)
-            break;
+                break;
 
             case 'search-close':
                 target = $this.data('target');
                 $('body').removeClass('g-navbar-search-shown');
 
-                setTimeout(function() {
+                setTimeout(function () {
                     $('body').removeClass('g-navbar-search-show').addClass('g-navbar-search-hiding');
                 }, 150);
 
-                setTimeout(function() {
+                setTimeout(function () {
                     $('body').removeClass('g-navbar-search-hiding').addClass('g-navbar-search-hidden');
                 }, 300);
 
-                setTimeout(function() {
+                setTimeout(function () {
                     $('body').removeClass('g-navbar-search-hidden');
                 }, 500);
-            break;
+                break;
         }
     })
 
 
     // Add sidenav modifier classes on mouse events
 
-    $('.sidenav').on('mouseenter', function() {
-        if(! $('body').hasClass('g-sidenav-pinned')) {
+    $('.sidenav').on('mouseenter', function () {
+        if (!$('body').hasClass('g-sidenav-pinned')) {
             $('body').removeClass('g-sidenav-hide').removeClass('g-sidenav-hidden').addClass('g-sidenav-show');
         }
     })
 
-    $('.sidenav').on('mouseleave', function() {
-        if(! $('body').hasClass('g-sidenav-pinned')) {
+    $('.sidenav').on('mouseleave', function () {
+        if (!$('body').hasClass('g-sidenav-pinned')) {
             $('body').removeClass('g-sidenav-show').addClass('g-sidenav-hide');
 
-            setTimeout(function() {
+            setTimeout(function () {
                 $('body').removeClass('g-sidenav-hide').addClass('g-sidenav-hidden');
             }, 300);
         }
@@ -131,8 +130,8 @@ var Layout = (function() {
 
 
     // Make the body full screen size if it has not enough content inside
-    $(window).on('load resize', function() {
-        if($('body').height() < 800) {
+    $(window).on('load resize', function () {
+        if ($('body').height() < 800) {
             $('body').css('min-height', '100vh');
             $('#footer-main').addClass('footer-auto-bottom')
         }

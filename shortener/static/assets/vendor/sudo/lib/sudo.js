@@ -17,11 +17,13 @@ function sudo(command, options) {
     var prompt = '#node-sudo-passwd#';
     var prompts = 0;
 
-    var args = [ '-S', '-p', prompt ];
+    var args = ['-S', '-p', prompt];
     args.push.apply(args, command);
 
     // The binary is the first non-dashed parameter to sudo
-    var bin = command.filter(function (i) { return i.indexOf('-') !== 0; })[0];
+    var bin = command.filter(function (i) {
+        return i.indexOf('-') !== 0;
+    })[0];
 
     var options = options || {};
     var spawnOptions = options.spawnOptions || {};
@@ -43,6 +45,7 @@ function sudo(command, options) {
             }, 100);
         }
     }
+
     pidof(bin, waitForStartup);
 
     // FIXME: Remove this handler when the child has successfully started
@@ -58,7 +61,10 @@ function sudo(command, options) {
                 if (options.cachePassword && cachedPassword) {
                     child.stdin.write(cachedPassword + '\n');
                 } else {
-                    read({ prompt: options.prompt || 'sudo requires your password: ', silent: true }, function (error, answer) {
+                    read({
+                        prompt: options.prompt || 'sudo requires your password: ',
+                        silent: true
+                    }, function (error, answer) {
                         child.stdin.write(answer + '\n');
                         if (options.cachePassword) {
                             cachedPassword = answer;

@@ -1,5 +1,5 @@
 from functools import wraps
-from django.http import HttpResponseRedirect
+
 from django.http.response import Http404
 
 

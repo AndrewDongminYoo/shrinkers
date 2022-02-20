@@ -1,6 +1,6 @@
-from shortener.index.views import index, register, login_view, logout_view
-from django.contrib import admin
 from django.urls import path
+
+from shortener.index.views import index, register, login_view, logout_view
 
 urlpatterns = [
     path("", index, name="index"),

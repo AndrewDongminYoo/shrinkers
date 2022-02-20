@@ -14,8 +14,8 @@ function attach() {
         }
     }
 
-    container.addEventListener('scroll', this._scroll, { passive: true });
-    window.addEventListener('resize', this._scroll, { passive: true });
+    container.addEventListener('scroll', this._scroll, {passive: true});
+    window.addEventListener('resize', this._scroll, {passive: true});
     this._scroll();
     this.attached = true;
 }
@@ -28,7 +28,7 @@ function attach() {
  * @return {boolean} A boolean value that indicates wether is on or off the viewport.
  */
 function inViewport(el) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { tolerance: 0 };
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {tolerance: 0};
 
     if (!el) {
         throw new Error('You should specify the element you want to test');
@@ -63,7 +63,7 @@ function inViewport(el) {
  * @return {boolean} A boolean value that indicates wether is on or off the container.
  */
 function inContainer(el) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { tolerance: 0, container: '' };
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {tolerance: 0, container: ''};
 
     if (!el) {
         throw new Error('You should specify the element you want to test');
@@ -112,7 +112,7 @@ function inContainer(el) {
 /* istanbul ignore next */
 function eventHandler() {
     var trackedElements = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { tolerance: 0 };
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {tolerance: 0};
 
     var selectors = Object.keys(trackedElements);
     var testVisibility = void 0;
@@ -181,9 +181,9 @@ function debouncedScroll() {
  * @return {void}
  */
 function destroy() {
-  this.options.container.removeEventListener('scroll', this._scroll);
-  window.removeEventListener('resize', this._scroll);
-  this.attached = false;
+    this.options.container.removeEventListener('scroll', this._scroll);
+    window.removeEventListener('resize', this._scroll);
+    this.attached = false;
 }
 
 /**
@@ -288,7 +288,11 @@ function observeDOM(obj, callback) {
 function OnScreen() {
     var _this = this;
 
-    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { tolerance: 0, debounce: 100, container: window };
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+        tolerance: 0,
+        debounce: 100,
+        container: window
+    };
 
     this.options = {};
     this.trackedElements = {};

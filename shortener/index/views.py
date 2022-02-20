@@ -1,11 +1,13 @@
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.http.response import JsonResponse
-from shortener.models import Users
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
+
 from shortener.forms import RegisterForm, LoginForm
-from django.contrib.auth import login, authenticate, logout
-from django.core.paginator import Paginator
-from django.contrib.auth.decorators import login_required
+from shortener.models import Users
+
 
 # Create your views here.
 

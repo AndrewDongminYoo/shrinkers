@@ -1,9 +1,11 @@
 from functools import wraps
+
 from django.db import connection
 
 
 def db_auto_reconnect(func):
     """Mysql Gone Away 대응"""
+
     @wraps(func)
     def wrapper(*args, **kwagrs):
         try:

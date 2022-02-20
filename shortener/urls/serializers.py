@@ -1,9 +1,8 @@
-import re
-import requests
-from shortener.utils import url_count_changer
 from django.contrib.auth.models import User
-from shortener.models import Users, ShortenedUrls
 from rest_framework import serializers
+
+from shortener.models import Users, ShortenedUrls
+from shortener.utils import url_count_changer
 
 
 class UserBaseSerializer(serializers.ModelSerializer):

@@ -19,7 +19,7 @@ class Users(Schema):
     organization: OrganizationSchema = None
 
 
-class TelemgramUpdateSchema(Schema):
+class TelegramUpdateSchema(Schema):
     username: str
 
 

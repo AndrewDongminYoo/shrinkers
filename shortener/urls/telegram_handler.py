@@ -1,5 +1,5 @@
-from typing import Text
 import requests
+
 from shortener.models import Schedules, ShortenedUrls, Users
 
 access_token = "1978567738:AAE8Fz3s8keXVeZrxDlAXJ2c0rOpx1HAOSg"
